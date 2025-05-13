@@ -19,12 +19,13 @@ java {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // AWS SDK BOM (Bill of Materials)
     implementation platform('software.amazon.awssdk:bom:2.25.7')
-
     // DynamoDB client
     implementation 'software.amazon.awssdk:dynamodb'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mockito:mockito-core'
 
     compileOnly 'org.projectlombok:lombok:1.18.38'
     annotationProcessor 'org.projectlombok:lombok:1.18.38'

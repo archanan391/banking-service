@@ -14,23 +14,23 @@ public class AccountController {
 
     @Autowired
     AccountService accountService;
+    TransactionResponse response = null;
 
     @PostMapping("/accounts/{accountID}/deposit")
-    public void deposit(@PathVariable String accountID, @RequestBody TransactionRequest request){
-        accountService.deposit(accountID, request.getAmount());
+    public ResponseEntity<TransactionResponse> deposit(@PathVariable String accountID, @RequestBody TransactionRequest request){
+        response = accountService.deposit(accountID, request.getAmount());
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/accounts/{accountID}/withdraw")
-    public void withdraw(@PathVariable String accountID, @RequestBody TransactionRequest request){
-        accountService.withdraw(accountID, request.getAmount());
+    public ResponseEntity<TransactionResponse> withdraw(@PathVariable String accountID, @RequestBody TransactionRequest request){
+        response = accountService.withdraw(accountID, request.getAmount());
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("accounts/{accountID}/balance")
     public ResponseEntity<TransactionResponse> checkBalance(@PathVariable String accountID){
-        TransactionResponse response = null;
-        Optional<Double> balance = accountService.checkBalance(accountID);
-        if(balance.isPresent())
-            response = new TransactionResponse(accountID, balance.get());
+        response = accountService.checkBalance(accountID);
         return ResponseEntity.ok(response);
     }
 

@@ -7,9 +7,11 @@ import lombok.Setter;
 public class TransactionResponse {
     private String accountID;
     private Double balance;
+    private String message;
 
-    public TransactionResponse(String accountID, Double balance) {
+    public TransactionResponse(String accountID, Double balance, String message) {
         this.accountID = accountID;
         this.balance = balance;
+        this.message = message;
     }
 }
