@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -28,6 +29,26 @@ public class AccountControllerTest {
     // ObjectMapper for converting to/from JSON
     @Autowired
     private com.fasterxml.jackson.databind.ObjectMapper objectMapper;
+
+    @Test
+    void shouldReturn201WhenAccountIsCreated() throws Exception {
+        TransactionResponse response = new TransactionResponse("1234", 100.0, "Account Creation Successful");
+
+        when(accountService.create(any(), any(), any())).thenReturn(response);
+
+        mockMvc.perform(post("/accounts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                    {
+                        "name": "user1"
+                    }
+                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.accountID").value("1234"))
+                .andExpect(jsonPath("$.message").value("Account Creation Successful"));
+    }
+
+
 
     @Test
     void testDeposit() throws Exception {
