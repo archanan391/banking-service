@@ -28,32 +28,38 @@ public class AccountController {
 
     @PostMapping("/accounts/{accountID}/deposit")
     public ResponseEntity<?> deposit(@PathVariable String accountID, @RequestBody TransactionRequest request){
-        try {
-            response = accountService.deposit(accountID, request.getAmount());
-            return ResponseEntity.ok(response);
-        } catch(AccountNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("ACCOUNT_NOT_FOUND", ex.getMessage()));
-        }
+//        try {
+//            response = accountService.deposit(accountID, request.getAmount());
+//            return ResponseEntity.ok(response);
+//        } catch(AccountNotFoundException ex) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("ACCOUNT_NOT_FOUND", ex.getMessage()));
+//        }
+        response = accountService.deposit(accountID, request.getAmount());
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/accounts/{accountID}/withdraw")
     public ResponseEntity<?> withdraw(@PathVariable String accountID, @RequestBody TransactionRequest request){
-        try {
-            response = accountService.withdraw(accountID, request.getAmount());
-            return ResponseEntity.ok(response);
-        } catch(AccountNotFoundException ex){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("ACCOUNT_NOT_FOUND", ex.getMessage()));
-        }
+//        try {
+//            response = accountService.withdraw(accountID, request.getAmount());
+//            return ResponseEntity.ok(response);
+//        } catch(AccountNotFoundException ex){
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("ACCOUNT_NOT_FOUND", ex.getMessage()));
+//        }
+        response = accountService.withdraw(accountID, request.getAmount());
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("accounts/{accountID}/balance")
     public ResponseEntity<?> checkBalance(@PathVariable String accountID){
-        try {
-            response = accountService.checkBalance(accountID);
-            return ResponseEntity.ok(response);
-        } catch(AccountNotFoundException ex){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("ACCOUNT_NOT_FOUND", ex.getMessage()));
-        }
+//        try {
+//            response = accountService.checkBalance(accountID);
+//            return ResponseEntity.ok(response);
+//        } catch(AccountNotFoundException ex){
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("ACCOUNT_NOT_FOUND", ex.getMessage()));
+//        }
+        response = accountService.checkBalance(accountID);
+        return ResponseEntity.ok(response);
     }
 
 }

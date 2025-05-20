@@ -17,6 +17,7 @@ public class AccountService {
 
     public TransactionResponse create(String accountType, String userID, Double balance){
         Account account = new Account(UUID.randomUUID().toString(), balance, accountType, userID);
+        accounts.put(account.getAccountID(), account);
         log.debug("Account Creation Successful");
         return new TransactionResponse(account.getAccountID(), account.getBalance(), "Account Creation Successful");
     }
@@ -59,4 +60,6 @@ public class AccountService {
         }
         return new TransactionResponse(accountID, account.getBalance(), "Check balance successful");
     }
+
+
 }

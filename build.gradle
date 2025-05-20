@@ -24,6 +24,9 @@ dependencies {
     // DynamoDB client
     implementation 'software.amazon.awssdk:dynamodb'
 
+    //Oauth client
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mockito:mockito-core'
 
