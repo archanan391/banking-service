@@ -33,7 +33,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-test'
     testImplementation 'org.mockito:mockito-core'
     testImplementation 'org.springframework.security:spring-security-test'
-    testImplementation 'org.springframework.security:spring-security-oauth2-resource-server' s
+    testImplementation 'org.springframework.security:spring-security-oauth2-resource-server'
 
     compileOnly 'org.projectlombok:lombok:1.18.38'
     annotationProcessor 'org.projectlombok:lombok:1.18.38'
