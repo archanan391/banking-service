@@ -16,6 +16,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
+
 
 @WebMvcTest(AccountController.class)
 public class AccountControllerTest {
@@ -37,6 +39,7 @@ public class AccountControllerTest {
         when(accountService.create(any(), any(), any())).thenReturn(response);
 
         mockMvc.perform(post("/accounts")
+                        .with(jwt().jwt(jwt -> jwt.claim("sub", "alice")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                     {
@@ -49,7 +52,6 @@ public class AccountControllerTest {
     }
 
 
-
     @Test
     void testDeposit() throws Exception {
         TransactionRequest request = new TransactionRequest("acc123", 100.0);
@@ -58,6 +60,7 @@ public class AccountControllerTest {
         when(accountService.deposit("acc123", 100.0)).thenReturn(response);
 
         mockMvc.perform(post("/accounts/acc123/deposit")
+                        .with(jwt().jwt(jwt -> jwt.claim("sub", "alice")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -74,6 +77,7 @@ public class AccountControllerTest {
         when(accountService.withdraw("acc123", 50.0)).thenReturn(response);
 
         mockMvc.perform(post("/accounts/acc123/withdraw")
+                        .with(jwt().jwt(jwt -> jwt.claim("sub", "alice")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -88,7 +92,8 @@ public class AccountControllerTest {
 
         when(accountService.checkBalance("acc123")).thenReturn(response);
 
-        mockMvc.perform(get("/accounts/acc123/balance"))
+        mockMvc.perform(get("/accounts/acc123/balance")
+                        .with(jwt().jwt(jwt -> jwt.claim("sub", "alice"))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.accountID").value("acc123"))
                 .andExpect(jsonPath("$.balance").value(150.0));

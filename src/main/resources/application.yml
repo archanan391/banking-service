@@ -6,3 +6,10 @@ aws:
     credentials:
         access-key: dummy
         secret-key: dummy
+# OAuth2 configuration
+spring:
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: https://dev-rlzncnssjvmpcp7r.us.auth0.com/

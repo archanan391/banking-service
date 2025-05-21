@@ -6,9 +6,7 @@ import com.banking.model.Account;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service @Slf4j
 public class AccountService {
@@ -20,6 +18,18 @@ public class AccountService {
         accounts.put(account.getAccountID(), account);
         log.debug("Account Creation Successful");
         return new TransactionResponse(account.getAccountID(), account.getBalance(), "Account Creation Successful");
+    }
+
+    public Account getAccountById(String accountID) {
+        Account account = accounts.get(accountID);
+        if (account == null) {
+            throw new AccountNotFoundException(accountID);
+        }
+        return account;
+    }
+
+    public List<Account> getAllAccounts() {
+        return new ArrayList<>(accounts.values());
     }
 
     public TransactionResponse deposit(String accountID, Double amount){

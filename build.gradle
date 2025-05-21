@@ -24,15 +24,19 @@ dependencies {
     // DynamoDB client
     implementation 'software.amazon.awssdk:dynamodb'
 
-    //Oauth client
+    //Oauth
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-test'
     testImplementation 'org.mockito:mockito-core'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.security:spring-security-oauth2-resource-server' s
 
     compileOnly 'org.projectlombok:lombok:1.18.38'
     annotationProcessor 'org.projectlombok:lombok:1.18.38'
-
 }
 
 test {
